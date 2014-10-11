@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-#include "stack_managment.h"
+#include "stack_functions.h"
 
 
 //======================================================

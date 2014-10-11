@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "stack_managment.h"
+#include "stack_functions.h"
 
 int main() {
 
