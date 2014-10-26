@@ -1,12 +1,11 @@
-extern int stack_errno;
 enum constants {
+    OK,                 ///< Successful action.
     EMPTY,              ///< Stack is empty.
+    FULL,               ///< Stack is full.
     ERR_MEM,            ///< There is no enough memory to allocate.
-    OUT_OF_STACK,       ///< Counter point at the segment is out of stack
-    OK                 ///< Successful action.
+    OUT_OF_STACK        ///< Counter point at the segment is out of stack or pointer of stack array = 0.
 };
-const double CANT_POP = -9999;
-const long int SPOIL_THE_COUNTER = -9999999; ///< Move the counter to the incorrect position.
+
 //==================================================================
 /*! \struct STACK_t
 
@@ -16,51 +15,54 @@ const long int SPOIL_THE_COUNTER = -9999999; ///< Move the counter to the incorr
 struct STACK_t {
     double* stack_arr; ///
     long int counter;
+    long int max_size;
 };
 //==================================================================
-/*! \fn     void stack_ctor (STACK_t* new_stack);
+/*! \fn     int stack_ctor (STACK_t* new_stack);
     \brief  Creates new stack.
 */
-void stack_ctor (STACK_t* new_stack);
+int stack_ctor (STACK_t* new_stack);
 //==================================================================
 
 //==================================================================
-/*! \fn     void push (STACK_t* Stack, double element);
+/*! \fn     int push (STACK_t* Stack, double element);
     \brief  Pushes the value onto the stack.
 
     \param      Stack       Stack pointer
     \param      element     Value to be pushed
 */
-void push (STACK_t* Stack, double element);
+int push (STACK_t* Stack, double element);
 //==================================================================
 
 //==================================================================
-/*! \fn     double pop (STACK_t* Stack);
+/*! \fn     int pop (STACK_t* Stack, double* value);
     \brief  Gets the number from the stack.
 
     \param      Stack       Stack pointer
 */
-double pop (STACK_t* Stack);
+int pop (STACK_t* Stack, double* value);
 //==================================================================
-
 //==================================================================
-/*! \fn     void insrt (STACK_t* Stack, long int position, double element);
+int stack_resize (STACK_t* Stack, long int SIZE);
+//==================================================================
+//==================================================================
+/*! \fn     int insrt (STACK_t* Stack, long int position, double element);
     \brief  Puts the number in any part of the stack.
 
     \param      Stack       Stack pointer
     \param      position    Position to insert
     \param      element     Value to be pushed
 */
-void insrt (STACK_t* Stack, long int position, double element);
+int insrt (STACK_t* Stack, long int position, double element);
 //==================================================================
 
 //==================================================================
-/*! \fn     int stack_ok (STACK_t* Stack);
+/*! \fn     int stack_state (STACK_t* Stack);
     \brief  Checks stack's validity.
 
     \param      Stack       Stack pointer
 */
-int stack_ok (STACK_t* Stack);
+int stack_state (STACK_t* Stack);
 //==================================================================
 
 //==================================================================
@@ -69,4 +71,4 @@ int stack_ok (STACK_t* Stack);
 
     \param      Stack       Stack pointer
 */
-void stack_dtor(STACK_t* Stack);
+int stack_dtor(STACK_t* Stack);
