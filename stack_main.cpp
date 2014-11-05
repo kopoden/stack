@@ -1,45 +1,49 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 #include "stack_functions.h"
 
 int main() {
-    STACK_t numbers;
-    printf("%d - RES\n", stack_ctor(&numbers));
-    printf("%d - POINTER\n", numbers.stack_arr);
-    printf("%ld - COUNTER\n", numbers.counter);
-    printf("%ld - MAX_SIZE\n", numbers.max_size);
 
-    printf("%d - RES\n", stack_resize(&numbers, 100));
-    printf("%d - NEW_POINTER\n", numbers.stack_arr);
-    printf("%ld - COUNTER\n", numbers.counter);
-    printf("%ld - NEW_MAX_SIZE\n", numbers.max_size);
+    STACK_t* strings = stack_ctor();
+    printf("%p\n", strings);
+    data_t structure;
 
-    printf("%d\n", insrt(&numbers, 0, 0.123));
-    insrt(&numbers, 0, 0.123);
-    insrt(&numbers, 0, 0.123);
-    push(&numbers, 689);
-    insrt(&numbers, 0, 0.123);
+    structure.last = 4;
+    strcpy(structure.String, "Denis");
 
-    double value = -9;
+    if (stack_resize(strings, 1024 * 1024 * 1024 / 104 * 2) == ERR_MEM) {
+        printf("CAN'T ALLOCATE MEMORY\n");
+        return 0;
+    }
+    else {
+        printf("ALLOCATION SUCCESSFUL\n");
 
-    pop(&numbers, &value);
-    printf("%lg\n", value);
+        for (int i = 0; i < 1024 * 1024 * 1024 / 104 * 2 - 1; i++) { // Test 2GB
+            int check = push(strings, &structure);
 
-    pop(&numbers, &value);
-    printf("%lg\n", value);
+            if (check == FULL) {
+                printf("STACK IS FULL\n");
+                break;
+            }
+            if (check == OUT_OF_STACK) {
+                printf("OUT OF STACK\n");
+                break;
+            }
+        }
+    }
+    strcpy(structure.String, "Koposov");
+    printf("%d - insert\n", insrt(strings, 0, &structure));//insert test part 1
 
-    pop(&numbers, &value);
-    printf("%lg\n", value);
+    data_t* answer = pop(strings);
+    printf("%s %d - answer(fixed)\n", answer->String, answer->last); //after POP
 
-    pop(&numbers, &value);
-    printf("%lg\n", value);
+    for (int i = 0; i < 10; i++)
+    printf("%s %d\n", strings->stack_arr[i].String, strings->stack_arr[i].last);//insert test part 2
 
-    printf("%d\n", pop(&numbers, &value));
-    printf("%lg\n", value);
-
-    printf("%d\n", pop(&numbers, &value));
-    printf("%lg\n", value);
+    stack_dtor(strings);
+    printf("%d\n", sizeof(data_t));// size of 1 structure
 
     return 0;
 }
