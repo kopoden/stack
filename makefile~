@@ -11,5 +11,5 @@ stack:	stack_main.o stack_functions.o
 
 clean:
 	rm -rf *.o
-	rm -rf stack
+	rm -rf -f stack
 

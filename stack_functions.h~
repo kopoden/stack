@@ -1,5 +1,6 @@
 #ifndef _STACK_FUNCTIONS_INCL_
 #define _STACK_FUNCTIONS_INCL_
+#endif
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -88,5 +89,4 @@ int stack_state (STACK_t* Stack);
     \param      Stack       Stack pointer
 */
 void stack_dtor(STACK_t* Stack);
-#endif
 
