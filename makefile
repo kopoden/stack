@@ -7,9 +7,9 @@ stack_main.o: stack_main.cpp stack_functions.h stack_functions.cpp
 	g++ -c stack_main.cpp
 
 stack:	stack_main.o stack_functions.o
-	g++ stack_functions.o stack_main.o -o stack
+	g++ stack_functions.o stack_main.o -o stack.exe
 
 clean:
 	rm -rf *.o
-	rm -rf stack
+	rm -rf stack.exe
 
