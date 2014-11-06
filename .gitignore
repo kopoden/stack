@@ -29,6 +29,7 @@
 
 # Temporary files
 *.*~
+*~
 
 # Binary files
 *.bin
